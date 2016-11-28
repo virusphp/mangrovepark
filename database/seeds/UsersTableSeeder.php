@@ -12,7 +12,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
     	//reset tabel user
-    	DB::statement('SET FOREIGN_KEY_CHECKS=0');
+    	DB::statement("SET FOREIGN_KEY_CHECKS=0");
         DB::table('users')->truncate();
 
         // generate 3 user atau author
