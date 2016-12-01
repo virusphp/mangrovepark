@@ -33,7 +33,17 @@ class User extends Authenticatable
         return $this->hasMany(Post::class, 'author_id');
     }
 
-     public function getBioHtmlAttribute($value)
+    public function gravatar()
+    {
+        $email = $this->email;
+        $default = "http://dev.alurosu.com/bobo/chat/data/img/admin/default.png";
+        $size = 100;
+
+        return "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "?d=" . urlencode( $default ) . "&s=" . $size;
+
+    }
+
+    public function getBioHtmlAttribute($value)
     {
         return $this->bio ? Markdown::convertToHtml(e($this->bio)) : NULL ;
     }
