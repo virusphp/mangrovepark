@@ -26,7 +26,6 @@ class BlogController extends Controller
     {
     	$categoryName = $category->title;
 
-    	// \DB::enableQueryLog();
     	$posts = $category->posts()
     				->with('author')
     				->latestFirst()
@@ -34,14 +33,13 @@ class BlogController extends Controller
     				->simplePaginate($this->limit);
    
     	return view('blog.index', compact('posts','categoryName'));
-    	 // dd(\DB::getQueryLog());
+
     }
 
     public function author(User $author)
     {
         $authorName = $author->name;
 
-        // \DB::enableQueryLog();
         $posts = $author->posts()
                     ->with('category')
                     ->latestFirst()
@@ -53,6 +51,9 @@ class BlogController extends Controller
 
     public function show(Post $post)
     {
+
+        $post->increment('view_count');
+
     	return view('blog.detailPost', compact('post'));
     }
 }
