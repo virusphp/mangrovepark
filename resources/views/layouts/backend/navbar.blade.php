@@ -22,7 +22,7 @@
           <?php $currentUser = Auth::user(); ?>
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <img src="{{ $currentUser->gravatar() }}" class="user-image" alt="{{ $currentUser->name }}">
-            <span class="hidden-xs">Alexander Pierce</span>
+            <span class="hidden-xs">{{ $currentUser->name }}</span>
           </a>
           <ul class="dropdown-menu">
             <!-- User image -->
