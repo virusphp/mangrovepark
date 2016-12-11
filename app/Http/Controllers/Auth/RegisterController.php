@@ -68,4 +68,21 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+
+    /**
+     * @Override method ShowRegistrasi
+     */
+    public function showRegistrationForm()
+    {
+        abort(404);
+    }
+
+    /**
+     * @Override method register
+     */
+    public function register()
+    {
+        abort(404);
+    }
+
 }

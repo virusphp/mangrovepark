@@ -30,3 +30,9 @@ Route::get('/category/{category}', [
 			'uses' => 'BlogController@author',
 			'as' => 'author'
 	]);
+
+Auth::routes();
+
+Route::get('/home', 'Backend\HomeController@index');
+// @override Route logout
+Route::get('/logout', 'Auth\LoginController@logout');
