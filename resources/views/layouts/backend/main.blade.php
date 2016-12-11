@@ -56,5 +56,6 @@
 <script src="/bk-admin/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/bk-admin/js/app.min.js"></script>
+@yield('script')
 </body>
 </html>

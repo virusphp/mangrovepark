@@ -37,4 +37,4 @@ Route::get('/home', 'Backend\HomeController@index');
 // @override Route logout
 Route::get('/logout', 'Auth\LoginController@logout');
 
-Route::resource('backend/blog', 'Backend\BlogController');
+Route::resource('/backend/blog', 'Backend\BlogController', ['as' => 'backend']);
