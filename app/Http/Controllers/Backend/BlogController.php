@@ -9,6 +9,14 @@ use App\Post;
 class BlogController extends BackendController
 {
     protected $limit = 5;
+    protected $uploadPath;
+
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->uploadPath = public_path('img');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +24,7 @@ class BlogController extends BackendController
      */
     public function index()
     {
-        $posts = Post::with('category', 'author')->latest()->paginate($this->limit);
+        $posts     = Post::with('category', 'author')->latest()->paginate($this->limit);
         $postCount = Post::count();
         return view('backend.blog.index', compact('posts', 'postCount'));
     }
@@ -40,10 +48,29 @@ class BlogController extends BackendController
      */
     public function store(Requests\PostRequest $request)
     {
+        $data = $this->handleRequest($request);
 
-       $request->user()->posts()->create($request->all());
+        $request->user()->posts()->create($data);
 
         return redirect( route('backend.blog.index'))->with('message', 'Postingan berhasil di buat!');
+    }
+
+    public function handleRequest($request)
+    {
+        $data = $request->all();
+
+        if($request->hasFile('image'))
+        {
+            $image       = $request->file('image');
+            $fileName    = $image->getClientOriginalName();
+            $destination = $this->uploadPath;
+
+            $image->move($destination, $fileName);
+
+            $data['image'] = $fileName;
+        }
+
+        return $data;
     }
 
     /**

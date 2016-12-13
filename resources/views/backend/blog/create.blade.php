@@ -28,7 +28,8 @@
 
                 {!! Form::model($post, [
                   'method' => 'POST', 
-                  'route' => 'backend.blog.store'
+                  'route' => 'backend.blog.store',
+                  'files' => TRUE
                 ]) !!}
                 
                   <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
@@ -70,6 +71,13 @@
                     {!! Form::select('category_id', App\Category::pluck('title','id'), null, ['class' => 'form-control', 'placeholder' => 'Choese Category']) !!}
                     @if($errors->has('category_id'))
                       <span class="help-block">{{ $errors->first('category_id') }}</span>
+                    @endif
+                  </div>
+                   <div class="form-group {{ $errors->has('image') ? 'has-error' : '' }}">
+                    {!! Form::label('image', 'Fiture Image') !!}
+                    {!! Form::file('image') !!}
+                    @if($errors->has('image'))
+                      <span class="help-block">{{ $errors->first('image') }}</span>
                     @endif
                   </div>
 
