@@ -28,8 +28,13 @@
             			<a href="{{ route('backend.blog.create') }}" class="btn btn-success">Add New</a>
             		</div>
             		<div class="pull-right" style="padding: 7px 0;">
-            			<a href="?status=all">All</a> |
-            			<a href="?status=trash">Trash</a>
+            			<?php $links = [] ?>
+	            		@foreach($statusList as $key => $value)
+	            			<?php $selected = Request::get('status') == $key ? 'selected-status' : '' ?>
+							<?php $links[] = "<a class=\"{$selected}\" href=\"?status={$key}\">" . ucwords($key) . "({$value})</a>" ?>
+	            		@endforeach
+            			{!! implode(' | ', $links) !!}
+            			
             		</div>
             	</div>
               <!-- /.box-header -->
@@ -52,7 +57,7 @@
 	          	<div class="box-footer clearfix">
 	          		<div class="pull-left">
 	          			<ul class="pagination no-margin">
-	          				{{ $posts->render() }}
+	          				{{ $posts->appends( Request::query() )->render() }}
 	          			</ul>
 	          		</div>
 	          		<div class="pull-right">
