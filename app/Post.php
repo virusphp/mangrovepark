@@ -42,7 +42,7 @@ class Post extends Model
     	return $imageUrl;
     }
 
-    public function getImageTumbUrlAttribute($value)
+    public function getImageThumbUrlAttribute($value)
     {
         $imageUrl = "";
 
