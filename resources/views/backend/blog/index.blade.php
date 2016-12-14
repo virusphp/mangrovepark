@@ -23,9 +23,13 @@
         <div class="row">
           <div class="col-xs-12">
             <div class="box">
-            	<div class="box-header">
+            	<div class="box-header clearfix">
             		<div class="pull-left">
             			<a href="{{ route('backend.blog.create') }}" class="btn btn-success">Add New</a>
+            		</div>
+            		<div class="pull-right" style="padding: 7px 0;">
+            			<a href="?status=all">All</a> |
+            			<a href="?status=trash">Trash</a>
             		</div>
             	</div>
               <!-- /.box-header -->
@@ -37,40 +41,11 @@
 	              		<strong>No Recort Found</strong>
 	              	</div>
 	              @else
-                    <table class="table table-bordered">
-                    	<thead>
-                    		<tr>
-                    			<td>Action</td>
-                    			<td>Title</td>
-                    			<td>Author</td>
-                    			<td>Category</td>
-                    			<td>Date</td>
-                    		</tr>
-                    	</thead>
-                    	<tbody>
-                    		@foreach($posts as $post)
-	                    		<tr>
-	                    			<td>
-											{!! Form::open(['method' => 'DELETE', 'route' => ['backend.blog.destroy', $post->id]]) !!}
-		                    				<a href="{{ route('backend.blog.edit', $post->id ) }}" class="btn btn-xs btn-default">
-		                    					<i class="fa fa-edit"></i>
-		                    				</a>
-		                    				<button type="submit" class="btn btn-xs btn-danger">
-		                    					<i class="fa fa-times"></i>
-		                    				</button>
-		                    			{!! Form::close() !!}
-	                    			</td>
-	                    			<td>{{ $post->title }}</td>
-	                    			<td>{{ $post->author->name }}</td>
-	                    			<td>{{ $post->category->title }}</td>
-	                    			<td>
-										<abbr title="{{ $post->dateFormatted(true) }}">{{ $post->dateFormatted() }}</abbr> |
-										{!! $post->publicationLabel() !!}
-	                    			</td>
-	                    		</tr>
-                    		@endforeach
-                    	</tbody>
-                    </table>
+                    @if($onlyTrashed)
+                    	@include('backend.blog.table-trash')
+                    @else
+						@include('backend.blog.table')
+                    @endif
 	              @endif
               </div>
               <!-- /.box-body -->
