@@ -3,11 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
 use GrahamCampbell\Markdown\Facades\Markdown;
 
 class Post extends Model
 {
+    use SoftDeletes;
     //model perlu di fillable ketika melakkan perubahan
     protected $fillable = ['title','slug','excerpt','body','published_at','category_id','image'];
     protected $dates = ['published_at'];
