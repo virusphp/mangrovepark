@@ -9,7 +9,6 @@ use App\Post;
 
 class BlogController extends BackendController
 {
-    protected $limit = 5;
     protected $uploadPath;
 
 

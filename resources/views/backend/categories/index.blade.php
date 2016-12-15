@@ -1,20 +1,20 @@
 @extends('layouts.backend.main')
 
-@section('title', 'MyBlog | Blog Index')
+@section('title', 'MyBlog | Categories')
 @section('content')
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
         Blog
-        <small>Display All blog posts</small>
+        <small>Display All Categories</small>
       </h1>
       <ol class="breadcrumb">
         <li>
         	<a href="{{ url('/home') }}"><i class="fa fa-dashboard"></i> Dashboard</a>
         </li>
-        <li><a href="{{ route('backend.blog.index') }}">Blog</a></li>
-        <li class="active">All Posts</li>
+        <li><a href="{{ route('backend.categories.index') }}">Categories</a></li>
+        <li class="active">All Categories</li>
       </ol>
     </section>
 
@@ -25,15 +25,9 @@
             <div class="box">
             	<div class="box-header clearfix">
             		<div class="pull-left">
-            			<a href="{{ route('backend.blog.create') }}" class="btn btn-success">Add New</a>
+            			<a href="{{ route('backend.categories.create') }}" class="btn btn-success">Add New</a>
             		</div>
-            		<div class="pull-right" style="padding: 7px 0;">
-            			<?php $links = [] ?>
-	            		@foreach($statusList as $key => $value)
-	            			<?php $selected = Request::get('status') == $key ? 'selected-status' : '' ?>
-							<?php $links[] = "<a class=\"{$selected}\" href=\"?status={$key}\">" . ucwords($key) . "({$value})</a>" ?>
-	            		@endforeach
-            			{!! implode(' | ', $links) !!}
+            		<div class="pull-right">
             			
             		</div>
             	</div>
@@ -41,27 +35,23 @@
               <div class="box-body ">
               	@include('backend.partials.message')
 
-	              @if(! $posts->count())
+	              @if(! $categories->count())
 	              	<div class="alert alert-danger">
 	              		<strong>No Recort Found</strong>
 	              	</div>
 	              @else
-                    @if($onlyTrashed)
-                    	@include('backend.blog.table-trash')
-                    @else
-						@include('backend.blog.table')
-                    @endif
+						      @include('backend.categories.table')
 	              @endif
               </div>
               <!-- /.box-body -->
 	          	<div class="box-footer clearfix">
 	          		<div class="pull-left">
 	          			<ul class="pagination no-margin">
-	          				{{ $posts->appends( Request::query() )->render() }}
+	          				{{ $categories->appends( Request::query() )->render() }}
 	          			</ul>
 	          		</div>
 	          		<div class="pull-right">
-	          			<small>{{ $postCount }} {{ str_plural('item', $postCount)}}</small>
+	          			<small>{{ $categoriesCount }} {{ str_plural('item', $categoriesCount) }}</small>
 	          		</div>
 	          	</div>
             </div>
