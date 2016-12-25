@@ -16,6 +16,12 @@ Route::get('/', [
 		'as' => 'blog'
 	]);
 
+// Route About
+Route::get('/about', [
+	'uses' => 'AboutController@index',
+	'as' => 'about'
+	]);
+
 Route::get('/blog/{post}', [
 	'uses' => 'BlogController@show',
 	'as' => 'blog.show'
@@ -48,3 +54,4 @@ Route::delete('/backend/blog/force-destroy/{blog}', [
 
 Route::resource('/backend/blog', 'Backend\BlogController', ['as' => 'backend']);
 Route::resource('/backend/categories', 'Backend\CategoriesController', ['as' => 'backend']);
+Route::resource('/backend/users', 'Backend\usersController', ['as' => 'backend']);

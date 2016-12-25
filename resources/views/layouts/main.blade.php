@@ -8,6 +8,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/custom.css">
+
+
+
+    <!-- Custom Fonts -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
 </head>
 <body>
     <header>
@@ -28,7 +38,7 @@
             <div class="collapse navbar-collapse" id="the-navbar-collapse">
               <ul class="nav navbar-nav navbar-right">
                 <li class="active"><a href="{{ route('blog') }}">Blog</a></li>
-                <li><a href="#">About</a></li>
+                <li><a href="{{ route('about') }}">About</a></li>
                 <li><a href="#">Contact</a></li>
               </ul>
             </div><!-- /.navbar-collapse -->
@@ -42,7 +52,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
-                    <p class="copyright">&copy; 2016 Bootraps</p>
+                    <p class="copyright">&copy; 2016 Bootraps Modified by Gandi</p>
                 </div>
                 <div class="col-md-4">
                     <nav>
@@ -59,5 +69,11 @@
     </footer>
 
     <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/agency.js"></script>
+     <script src="js/classie.js"></script>
+    <script src="/js/cbpAnimatedHeader.js"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="/js/jqBootstrapValidation.js"></script>
 </body>
 </html>
