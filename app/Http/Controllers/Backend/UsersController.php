@@ -93,11 +93,46 @@ class UsersController extends BackendController
     public function destroy(Requests\UserDestroyRequest $request, $id)
     {
 
-         //kita cari kategori berdasarkan id
-         $user = User::findOrFail($id);
-         //kita hapus kategori
-         $user->delete();
+        $user = User::findOrFail($id);
+        $deleteOption = $request->delete_option;
+        $selectedUser = $request->selected_user;
+
+        if ($deleteOption == 'delete') {
+            //saat pilih delte hapus postingan baru hapus user
+            $user->posts()->withTrashed()->forceDelete();
+        }
+        elseif ($deleteOption == 'attribute') {
+            //saat pilih attribut eakan di pindahkan ke user lain
+            $user->posts()->update(['author_id' => $selectedUser ]);
+        }
+        //kita cari User berdasarkan id
+        //kita hapus User
+        $user->delete();
 
         return redirect('/backend/users')->with('message', 'User berhasil di dihapus!.');
+    }
+
+    public function confirm(Requests\UserDestroyRequest $request, $id)
+    {
+
+        //kita cari User berdasarkan id
+        $user = User::findOrFail($id);
+        $users = User::where('id', '!=' , $user->id)->pluck('name', 'id');
+
+        return view('backend.users.confirm', compact('user', 'users'));
+    }
+
+    private function removeImage($image)
+    {
+        if (! empty($image))
+        {
+            $imagePath = $this->uploadPath . '/' . $image;
+            $ext = substr(strchr($image,'.'), 1);
+            $thumbnail = str_replace(".{$ext}", "_thumb.{$ext}", $image);
+            $thumbnailPath = $this->uploadPath . '/' . $thumbnail;
+
+            if( file_exists($imagePath)) unlink($imagePath);
+            if( file_exists($thumbnailPath)) unlink($thumbnailPath);
+        }
     }
 }

@@ -8,24 +8,24 @@
 	</tr>
 </thead>
 <tbody>
+	<?php $currentUser = auth()->user(); ?>
 	@foreach($users as $user)
 		<tr>
 			<td>
-					{!! Form::open(['method' => 'DELETE', 'route' => ['backend.users.destroy', $user->id]]) !!}
-    				<a href="{{ route('backend.users.edit', $user->id ) }}" class="btn btn-xs btn-default">
-    					<i class="fa fa-edit"></i>
-    				</a>
-    				@if($user->id == config('cms.default_user_id'))
-							<button onclick="return false" type="submit" class="btn btn-xs btn-danger disabled">
-								<i class="fa fa-times"></i>
-							</button>
-						@else
+				<a href="{{ route('backend.users.edit', $user->id ) }}" class="btn btn-xs btn-default">
+					<i class="fa fa-edit"></i>
+				</a>
+				@if($user->id == config('cms.default_user_id') || $user->id == $currentUser->id)
+						<button onclick="return false" type="submit" class="btn btn-xs btn-danger disabled">
+							<i class="fa fa-times"></i>
+						</button>
+					@else
 
-		    				<button onclick="return confirm('Apa kamu yakin?')" type="submit" class="btn btn-xs btn-danger">
-		    					<i class="fa fa-times"></i>
-		    				</button>
-    				@endif
-    			{!! Form::close() !!}
+	    				<a href="{{ route('backend.users.confirm', $user->id) }}" onclick="return confirm('Apa kamu yakin?')" type="submit" class="btn btn-xs btn-danger">
+	    					<i class="fa fa-times"></i>
+	    				</a>
+				@endif
+			
 			</td>
 			<td>{{ $user->name }}</td>
 			<td>{{ $user->email }}</td>
