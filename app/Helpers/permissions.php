@@ -47,9 +47,9 @@ function check_user_permissions($request, $actionName = NULL, $id = NULL)
             	$id = !is_null($id) ? $id : $request->route("blog");
                 // jika user saat ini tidak bisa update post lain dan delete permisi
                 // maka hanya diperbolehkan untuk pemilik postingan
-                if ($id && (!$currentUser->can('update-other-post') || $currentUser->can('delete-other-post')) )
+                if ($id && (!$currentUser->can('update-other-post') || !$currentUser->can('delete-other-post')) )
                 {
-                    $post = \App\Post::find($id);
+                    $post = \App\Post::withTrashed()->find($id);
                     if ($post->author_id !== $currentUser->id) {
                         return false;
                     }
