@@ -140,6 +140,7 @@ return [
         GrahamCampbell\Markdown\MarkdownServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Laratrust\LaratrustServiceProvider::class,
         /*
          * Laravel Framework Service Providers...
          */
@@ -232,6 +233,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class,
+        'Laratrust'   => Laratrust\LaratrustFacade::class,
 
     ],
 

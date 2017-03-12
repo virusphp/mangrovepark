@@ -11,7 +11,7 @@ class Post extends Model
 {
     use SoftDeletes;
     //model perlu di fillable ketika melakkan perubahan
-    protected $fillable = ['title','slug','excerpt','body','published_at','category_id','image'];
+    protected $fillable = ['title','slug','excerpt','body','published_at','category_id','image', 'author_id'];
     protected $dates = ['published_at'];
 
 	public function author()

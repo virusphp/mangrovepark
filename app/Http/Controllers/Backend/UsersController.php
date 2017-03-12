@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\User;
+use App\Post;
 
 class UsersController extends BackendController
 {
@@ -41,7 +42,9 @@ class UsersController extends BackendController
      */
     public function store(Requests\UserStoreRequest $request)
     {
-        User::create($request->all());
+        $data = $request->all();
+        $data['password'] = bcrypt($data['password']);
+        User::create($data);
 
         return redirect('/backend/users')->with('message', 'User berhasil di buat!.');
     }
@@ -92,14 +95,16 @@ class UsersController extends BackendController
      */
     public function destroy(Requests\UserDestroyRequest $request, $id)
     {
-
         $user = User::findOrFail($id);
         $deleteOption = $request->delete_option;
         $selectedUser = $request->selected_user;
+        // $request = $request->user()->posts();
+        
 
         if ($deleteOption == 'delete') {
             //saat pilih delte hapus postingan baru hapus user
             $user->posts()->withTrashed()->forceDelete();
+            // $this->removeImage($gambar);
         }
         elseif ($deleteOption == 'attribute') {
             //saat pilih attribut eakan di pindahkan ke user lain
@@ -112,11 +117,19 @@ class UsersController extends BackendController
         return redirect('/backend/users')->with('message', 'User berhasil di dihapus!.');
     }
 
+    public function deleteImagePost(Request $photo)
+    {
+        
+    }
+
     public function confirm(Requests\UserDestroyRequest $request, $id)
     {
 
         //kita cari User berdasarkan id
         $user = User::findOrFail($id);
+        // $gambar = $user->posts()->cout('image');
+
+        // dd($gambar);
         $users = User::where('id', '!=' , $user->id)->pluck('name', 'id');
 
         return view('backend.users.confirm', compact('user', 'users'));
