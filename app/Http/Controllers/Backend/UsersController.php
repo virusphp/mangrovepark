@@ -43,8 +43,10 @@ class UsersController extends BackendController
     public function store(Requests\UserStoreRequest $request)
     {
         $data = $request->all();
-        $data['password'] = bcrypt($data['password']);
-        User::create($data);
+        $user = User::create($data);
+        
+        $user->detachRoles();
+        $user->attachRole($request->role);
 
         return redirect('/backend/users')->with('message', 'User berhasil di buat!.');
     }
@@ -82,7 +84,10 @@ class UsersController extends BackendController
      */
     public function update(Requests\UserUpdateRequest $request, $id)
     {
-        User::findOrFail($id)->update($request->all());
+        $user = User::findOrFail($id);
+        $user->update($request->all());
+        
+        $user->attachRole($request->role);
 
         return redirect('/backend/users')->with('message', 'User berhasil di perbarui!.');
     }

@@ -40,6 +40,9 @@ Route::get('/category/{category}', [
 Auth::routes();
 
 Route::get('/home', 'Backend\HomeController@index');
+Route::get('/edit-account', 'Backend\HomeController@edit');
+Route::put('/edit-account', 'Backend\HomeController@update');
+
 // @override Route logout
 Route::get('/logout', 'Auth\LoginController@logout');
 

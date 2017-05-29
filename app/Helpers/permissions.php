@@ -64,6 +64,6 @@ function check_user_permissions($request, $actionName = NULL, $id = NULL)
             break;
         }
     }
-    
-    return true;
+
+    return true; 
 }

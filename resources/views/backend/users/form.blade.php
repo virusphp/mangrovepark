@@ -10,8 +10,8 @@
           @if($errors->has('name'))
             <span class="help-block">{{ $errors->first('name') }}</span>
           @endif
-
         </div>
+
         <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
           {!! Form::label('email') !!}
           {!! Form::text('email', null, ['class' => 'form-control']) !!}
@@ -19,6 +19,15 @@
             <span class="help-block">{{ $errors->first('email') }}</span>
           @endif
         </div>
+
+        <div class="form-group {{ $errors->has('slug') ? 'has-error' : '' }}">
+          {!! Form::label('slug') !!}
+          {!! Form::text('slug', null, ['class' => 'form-control']) !!}
+          @if($errors->has('slug'))
+            <span class="help-block">{{ $errors->first('slug') }}</span>
+          @endif
+        </div>
+
 
         <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
           {!! Form::label('password') !!}
@@ -36,6 +45,26 @@
           @endif
         </div>
 
+        <div class="form-group {{ $errors->has('role') ? 'has-error' : '' }}">
+          {!! Form::label('role') !!}
+          @if ($user->exists && ($user->id == config('cms.default_user_id') || isset($hideRoleDropdown)))
+              <p class="form-control-static">{{ $user->roles->first()->display_name }}</p>
+              {!! Form::hidden('role', $user->roles->first()->id) !!}
+          @else
+            {!! Form::select('role', App\Role::pluck('display_name', 'id'), $user->exists ? $user->roles->first()->id : null, ['class' => 'form-control', 'placeholder' => 'Pilih Role']) !!}
+          @endif
+          @if($errors->has('role'))
+            <span class="help-block">{{ $errors->first('role') }}</span>
+          @endif
+        </div>
+
+        <div class="form-group">
+          {!! Form::label('bio') !!}
+          {!! Form::textarea('bio', null, ['rows'=> 5, 'class' => 'form-control']) !!}
+          @if($errors->has('bio'))
+            <span class="help-block">{{ $errors->first('bio') }}</span>
+          @endif
+        </div>
     </div>
     <!-- /.box-body -->
     <div class="box-footer">
